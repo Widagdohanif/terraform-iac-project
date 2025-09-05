@@ -17,9 +17,11 @@ terraform {
 
 # Get cluster info from infrastructure state
 data "terraform_remote_state" "infrastructure" {
-  backend = "local"
+  backend = "s3"
   config = {
-    path = "../../iac/terraform.tfstate"
+    bucket = "project-iac-bucket"
+    key    = "terraform/terraform.tfstate"
+    region = "us-west-2"
   }
 }
 

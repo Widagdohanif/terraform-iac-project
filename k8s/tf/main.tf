@@ -304,7 +304,7 @@ resource "helm_release" "prometheus_stack" {
   name       = "prometheus"
   repository = "https://prometheus-community.github.io/helm-charts"
   chart      = "kube-prometheus-stack"
-  namespace  = kubernetes_namespace.monitoring.metadata.name
+  namespace  = kubernetes_namespace.monitoring.metadata[0].name
   version    = "51.2.0"
   
   # INCREASE TIMEOUT for slow t3.micro cluster

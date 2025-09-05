@@ -31,19 +31,19 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd src
+          cd app/src
           pip install --no-cache-dir -r requirements.txt
           pip install pytest pytest-cov
 
       - name: Run linting
         run: |
-          cd src
+          cd app/src
           pip install flake8
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
 
       - name: Run tests
         run: |
-          cd src
+          cd app/src
           python -m pytest --cov=. --cov-report=xml
 
       - name: Determine environment
