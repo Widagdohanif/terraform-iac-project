@@ -1,0 +1,6 @@
+# requirements.txt
+flask
+prometheus-client==0.16.0
+pytest
+pytest-cov
+

@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1  # ← FIX: API version benar
+kind: ServiceMonitor
+metadata:
+  name: flask-service-monitor
+  namespace: default 
+  labels:
+    release: prometheus
+    app: flask-app
+spec:
+  selector:
+    matchLabels:
+      app: flask-app 
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 30s
+      honorLabels: true
+  namespaceSelector:
+    matchNames:
+      - default 
