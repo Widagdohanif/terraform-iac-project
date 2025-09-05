@@ -116,7 +116,7 @@ jobs:
       - name: Terraform Init - Infrastructure
         run: |
           cd iac
-          terraform init
+          terraform init -reconfigure
 
       - name: Terraform Plan - Infrastructure
         run: |
@@ -184,7 +184,7 @@ jobs:
       - name: Terraform Init - Kubernetes
         run: |
           cd k8s/tf
-          terraform init
+          terraform init -reconfigure
 
       - name: Terraform Plan - Kubernetes
         run: |
