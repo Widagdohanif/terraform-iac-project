@@ -79,21 +79,43 @@ This project demonstrates a **microservices architecture** deployed on AWS using
 
 ### Installation
 
-1. **Clone the repository**
-2. **Initialize Terraform**  
-   `cd iac && terraform init`
-3. **Review and customize variables** in `terraform.tfvars` as needed.
-4. **Apply Terraform** to provision AWS resources  
-   `terraform apply`
-5. **Configure kubectl** to access your EKS cluster  
-   `aws eks --region <region> update-kubeconfig --name <cluster-name>`
-6. **Build and push the Docker image**  
-   `cd app && ./script/build.sh`
-7. **Deploy the application and monitoring stack**  
-   `kubectl apply -f k8s/manifest/app/`  
-   `kubectl apply -f k8s/manifest/monitoring/`  
-   `kubectl apply -f k8s/manifest/nginx/`
+### Installation
 
+1. **Clone the repository**
+```
+git clone https://github.com/Widagdohanif/terraform-iac-project
+cd terraform-iac-project
+```
+
+2. **Configure AWS credentials**
+```aws configure```
+
+3. **Create S3 bucket for Terraform state**
+```aws s3 mb s3://<your-terraform-state-bucket>```
+
+4. **Initialize Terraform or use deployment script**
+
+- **Option A: Using Terraform directly**
+    ```
+    cd iac
+    terraform init
+    terraform apply
+    ```
+- **Option B: Using deployment script**
+    ```
+    chmod +x ./script/*.sh
+    ./script/deploy.sh
+    ```
+    
+5. **Done! The infrastructure has been provisioned**
+- EKS cluster is ready
+- Application deployed
+- Monitoring stack configured
+
+### Cleanup
+
+To destroy all resources:
+```./script/destroy.sh```
 ### Deployment Scripts
 
 - **deploy.sh**: Automated deployment script (optional)
