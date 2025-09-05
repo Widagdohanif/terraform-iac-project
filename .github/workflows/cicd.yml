@@ -218,34 +218,3 @@ jobs:
           echo "📱 Application URL: ${{ steps.lb-url.outputs.url }}"
           echo "📊 Metrics: ${{ steps.lb-url.outputs.url }}/metrics"
           echo "🏥 Health: ${{ steps.lb-url.outputs.url }}/health"
-
-  notify:
-    needs: [build-test, deploy-infrastructure, deploy-application]
-    runs-on: ubuntu-latest
-    if: always() && github.event_name != 'pull_request'
-    
-    steps:
-      - name: Notify Slack on Success
-        if: needs.deploy-application.result == 'success'
-        uses: 8398a7/action-slack@v3
-        with:
-          status: success
-          text: |
-            ✅ Deployment Success!
-            Environment: ${{ needs.build-test.outputs.environment }}
-            Image: ${{ env.DOCKER_IMAGE }}:${{ needs.build-test.outputs.environment }}-${{ github.sha }}
-            Commit: ${{ github.sha }}
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-
-      - name: Notify Slack on Failure
-        if: needs.deploy-application.result == 'failure' || needs.deploy-infrastructure.result == 'failure'
-        uses: 8398a7/action-slack@v3
-        with:
-          status: failure
-          text: |
-            ❌ Deployment Failed!
-            Environment: ${{ needs.build-test.outputs.environment }}
-            Check the logs: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
