@@ -193,11 +193,11 @@ jobs:
           
       - name: Force delete existing Kubernetes resources
         run: |
-          kubectl delete deployment flask-app || true
-          kubectl delete service flask-app-service || true
-          kubectl delete configmap nginx-lb-config || true
-          kubectl delete service nginx-loadbalancer-service || true
-          kubectl delete namespace monitoring || true
+          kubectl delete deployment flask-app nginx-loadbalancer --ignore-not-found=true
+          kubectl delete service flask-app-service nginx-loadbalancer-service --ignore-not-found=true
+          kubectl delete configmap nginx-lb-config --ignore-not-found=true
+          kubectl delete namespace monitoring --ignore-not-found=true
+          kubectl delete servicemonitor flask-service-monitor -n default --ignore-not-found=true
 
       - name: Terraform Apply - Kubernetes
         run: |
