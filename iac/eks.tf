@@ -27,11 +27,11 @@ resource "aws_eks_node_group" "main" {
   subnet_ids = module.vpc.public_subnets
   
   capacity_type  = "SPOT"
-  instance_types = ["t3.micro"]
+  instance_types = ["t3.medium"]
   
   scaling_config {
-    desired_size = 1
-    max_size     = 2
+    desired_size = 8
+    max_size     = 16
     min_size     = 1
   }
   
@@ -39,11 +39,11 @@ resource "aws_eks_node_group" "main" {
     max_unavailable = 1
   }
   
-  disk_size = 20
+  disk_size = 30
   
   # SSH ACCESS CONFIGURATION
   remote_access {
-    ec2_ssh_key               = "golkey"  # Your existing keypair name
+    ec2_ssh_key               = "golkey"
     source_security_group_ids = [aws_security_group.node_ssh.id]
   }
   
@@ -67,7 +67,7 @@ resource "aws_security_group" "node_ssh" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]  # Restrict to your IP for security
+    cidr_blocks = ["0.0.0.0/0"] 
   }
   
   egress {
