@@ -1,4 +1,4 @@
-# Project Name
+# Terraform Cloud IAC Project 
 
 A **cloud-native application** deployed on **AWS Elastic Kubernetes Service (EKS)**, orchestrated with **Terraform**, containerized with **Docker**, powered by **Flask**, and monitored by **Prometheus** and **Grafana**.
 
