@@ -190,6 +190,14 @@ jobs:
         run: |
           cd k8s/tf
           terraform plan -no-color
+          
+      - name: Force delete existing Kubernetes resources
+        run: |
+          kubectl delete deployment flask-app || true
+          kubectl delete service flask-app-service || true
+          kubectl delete configmap nginx-lb-config || true
+          kubectl delete service nginx-loadbalancer-service || true
+          kubectl delete namespace monitoring || true
 
       - name: Terraform Apply - Kubernetes
         run: |
