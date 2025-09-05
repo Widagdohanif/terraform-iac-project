@@ -9,14 +9,14 @@ echo "🗑️  Starting cleanup process..."
 
 # Cleanup Kubernetes resources first
 echo "🧹 Cleaning up Kubernetes resources..."
-cd k8s/tf
+cd ~/Documents/project-iac/terraform-iac/k8s/tf
 if [ -f "terraform.tfstate" ]; then
     terraform destroy -auto-approve
 fi
 
 # Cleanup infrastructure
 echo "🏗️  Cleaning up infrastructure..."
-cd ../../iac
+cd ~/Documents/project-iac/terraform-iac/iac
 if [ -f "terraform.tfstate" ]; then
     terraform destroy -auto-approve
 fi
