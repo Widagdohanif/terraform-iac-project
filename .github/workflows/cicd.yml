@@ -177,23 +177,23 @@ jobs:
 
       - name: Update image in Kubernetes manifests
         run: |
-          cd k8s-manifests
+          cd k8s/tf
           # Update terraform.tfvars with new image
           sed -i 's|flask_image = ".*"|flask_image = "${{ env.DOCKER_IMAGE }}:${{ needs.build-test.outputs.environment }}-${{ github.sha }}"|g' terraform.tfvars
 
       - name: Terraform Init - Kubernetes
         run: |
-          cd k8s-manifests
+          cd k8s/tf
           terraform init
 
       - name: Terraform Plan - Kubernetes
         run: |
-          cd k8s-manifests
+          cd k8s/tf
           terraform plan -no-color
 
       - name: Terraform Apply - Kubernetes
         run: |
-          cd k8s-manifests
+          cd k8s/tf
           terraform apply -auto-approve
 
       - name: Wait for deployment
